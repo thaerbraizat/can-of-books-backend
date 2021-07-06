@@ -6,4 +6,5 @@ const bookSchema = new mongoose.Schema({
     description: { type: String },
     status: { type: String },
 });
+// const bookModel=mongoose.model('books' , bookSchema)
 module.exports = bookSchema;

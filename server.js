@@ -7,9 +7,9 @@ const cors = require('cors');
 // const jwksClient = require('jwks-rsa');
 const axios = require('axios');
 require('dotenv').config();
-const expressServer = require('./controller/expressServer');
-const Book = require('./controller/book');
-const userData = require('./models/user');
+const homeController = require('./controller/home.controller');
+const bookController = require('./controller/book.controller');
+
 const app = express();
 app.use(cors());
 
@@ -49,9 +49,9 @@ mongoose.connect('mongodb://localhost:27017/favBooks',
 //     res.send(user)
 //   })
 // });
+app.get('/books', bookController);
+app.get('/', homeController);
 
-app.get('/', expressServer);
-app.get('/books', Book);
 
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
 
