@@ -1,44 +1,47 @@
 'use strict';
-const mongoose=require('mongoose');
-const booksSchema=require('./books.model')
+const mongoose = require('mongoose');
+const bookModel = require('./books.model')
 
-const userSchema=new mongoose.Schema({
-    email : {type:String},
-    book :[booksSchema]
+const userSchema = new mongoose.Schema({
+    email: { type: String },
+    // book: [bookModel]
 });
 
 // this is like a class
-const userModel=mongoose.model('user',userSchema)
+const userModel = mongoose.model('user', userSchema)
 
 
-const seedUser=()=>{
-    const feLawsOfpower=({
-        name:'48 laws of power',
-        description:"authored by robet",
-        status:'active' 
-    })
-    const mySystem=({
-        name:'48 laws of power',
-        description:"authored by robet",
-        status:'active' 
-    })
-    const gameOfThrons=({
-        name:'48 laws of power',
-        description:"authored by robet",
-        status:'active' 
-    })
-    
-    const thaer =new userModel({
-        email:"thaerbraizat13@gmail.com",
-        books:[gameOfThrons,mySystem,feLawsOfpower]
-    });
+// const gameOfThrons = ({
+//     name: 'A Dance with Dragons ',
+//     description: " George R. R. Martin.",
+//     status: 'active'
+// })
 
-    thaer.save();
+// const feLawsOfpower = ({
+//     name: '48 laws of power',
+//     description: "authored by robet",
+//     status: 'active'
+// })
 
-    
-return(thaer)
-}
-module.exports=userModel; 
+// const mySystem = ({
+//     name: 'database',
+//     description: "authored by nawras",
+//     status: 'active'
+// })
+
+
+// const thaer = new userModel({
+//     email: "thaerbraizat13@gmail.com",
+//     books: [gameOfThrons, mySystem, feLawsOfpower]
+
+// });
+
+// const seedUser = () => {
+//     thaer.save();
+
+//     return (thaer)
+// }
+module.exports = userModel;
 
 
 

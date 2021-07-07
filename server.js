@@ -3,13 +3,15 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+
 // const jwt = require('jsonwebtoken');
 // const jwksClient = require('jwks-rsa');
+
 const mongoose=require('mongoose');
 const app = express();
 const homeController=require('./controllers/home.controller')
 
-const bookController=require('./controllers/book.controller')
+const getData =require('./controllers/book.controller');
 
 app.use(cors());
 
@@ -19,7 +21,8 @@ mongoose.connect('mongodb://localhost:27017/favBooks',
 {useNewUrlParser:true,useUnifiedTopology:true})
 
 app.get('/',homeController);
-app.get('/book',bookController);
+
+app.get('/book',getData);
 
 
 
