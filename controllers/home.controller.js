@@ -5,9 +5,10 @@ seedUser();
 res.send("iam here!");
 
 
-// const userObject=seedUser();
-// res.send(userObject)
-// console.log(userObject);
+//  const userObject=seedUser();
+//  res.json(userObject)
+
+//  console.log(userObject);
 }
 
 module.exports=homeController;

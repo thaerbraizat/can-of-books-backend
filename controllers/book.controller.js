@@ -1,16 +1,20 @@
-'use strict';
-const userModel =require('../models/user.model')
-const bookController=(req,res)=>{
-    const searchQuery=req.query.email;
-    console.log(userModel);
-    userModel.find({email: searchQuery},(err,user)=>{
+const users =require('../models/user.model');
 
-        if(err){
-            res.send("not found")
+let getData = (req,res)=>{
+    console.log(req.query.email);
+    users.find({email:req.query.email},(err,users)=>{
+
+        if (err){
+            console.log(err);
         }
-            res.send(user.books)
-        
+        // console.log(users);
+        // const booksObject=users[0].books.toObject();
+       
+        // const arr =JSON.stringify(users)
+        // console.log(arr[0].books);
+        res.json(users)
+        console.log(users);
     })
-}
 
-module.exports=bookController
+}
+module.exports=getData;
