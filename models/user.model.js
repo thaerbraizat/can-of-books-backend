@@ -4,7 +4,7 @@ const bookModel = require('./books.model')
 
 const userSchema = new mongoose.Schema({
     email: { type: String },
-    // book: [bookModel]
+    book: [bookModel]
 });
 
 // this is like a class
@@ -41,7 +41,20 @@ const userModel = mongoose.model('user', userSchema)
 
 //     return (thaer)
 // }
-module.exports = userModel;
+
+const seedUserData = () => {
+    const newUser = new userModel({
+        email: 'v.salvatore7.gs@gmail.com',
+        cats: [bookModel]
+   
+    });
+    console.log(newUser);
+    newUser.save();
+}
+module.exports = {
+    userModel,
+    seedUserData
+}
 
 
 
