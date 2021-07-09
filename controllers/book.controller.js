@@ -1,66 +1,37 @@
-const users = require('../models/user.model');
+const User = require('../models/user.model');
 
-let bookController = (req, res) => {
-    console.log(req.query.email);
-    users.find({ email: req.query.email }, (err, users) => {
 
+
+
+const addBook = (req, res) => {
+    User.updateOne({email: req.body.email},  {$push: {books: req.body.book}}, (err) => {
         if (err) {
-            console.log(err);
+            console.log("E");
         }
-        res.json(users)
-        console.log(users);
-    })
-}
-
-const createBook = (req, res) => {
-    const { userEmail, bookName } = req.body;
-    users.findOne({ email: userEmail }, (error, userData) => {
-        if (error) {
-            res.send(error)
-        }
-        const newBook = { name: bookName }
-        userData.book.push(newBook);
-        userData.save();
-        res.json(userData);
-
-    })
-}
-const updateBook = (req, res) => {
-
-    const bookIndex = req.params.book_id;
-    const { userEmail, bookName } = req.body;
-    users.findOne({ email: userEmail }, (error, userData) => {
-        if (error) {
-            res.send(error)
-        } else {
-            userData.book.splice(bookIndex, 1, { name: bookName });
-            userData.save();
-            res.send(userData.book);
-        }
+        res.send('user updated')
     });
 }
+
 
 const deleteBook = (req, res) => {
-
-    const bookIndex = req.params.book_idx;
-    const { email } = req.query;
-
-    users.findOne({ email: email }, (error, userData) => {
-        if (error) {
-            res.send(error)
-        } else {
-            userData.book.splice(bookIndex, 1);
-            userData.save();
-            res.send(userData.book);
-
+    let name = req.body.book.name;
+    User.updateOne({email: req.body.email}, {"$pull": {"books": {"name": name}}}, (err) => {
+        if (err) {
+            console.log("E");
         }
-
+        res.send('user updatejhjhd');
     });
 }
 
-module.exports = {
-    bookController,
-    createBook,
-    updateBook,
-    deleteBook
+const updateBook = (req, res) => {
+    console.log(req.body);
+    User.updateOne({email: req.body.email, "books.name": req.body.name}, {"$set": {"books.$.name": req.body.book.name, "books.$.status": req.body.book.status, "books.$.description": req.body.book.description}}, (err) => {
+        if (err) {
+            console.log("fuvk you");
+        }
+        res.send("njjbjvjhvv");
+    });
 }
+
+
+module.exports = {addBook, deleteBook, updateBook} 

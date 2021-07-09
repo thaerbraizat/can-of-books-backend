@@ -9,13 +9,14 @@ const cors = require('cors');
 
 const mongoose = require('mongoose');
 const app = express();
-const homeController = require('./controllers/home.controller')
+const homeController = require('./controllers/home.controller');
+const User = require('./models/user.model');
+const {getUser, deleteUser, addUser} = require('./controllers/user.controller');
 
 const {
-    bookController,
-    createBook,
-    updateBook,
-    deleteBook
+    addBook,
+    deleteBook,
+    updateBook
 } = require('./controllers/book.controller');
 
 app.use(cors());
@@ -23,18 +24,34 @@ app.use(express.json());
 
 const port = process.env.PORT;
 
-mongoose.connect('mongodb://localhost:27017/favBooks',
-    { useNewUrlParser: true, useUnifiedTopology: true })
+ mongoose.connect('mongodb://localhost:27017/favBooks',
+    { useNewUrlParser: true, useUnifiedTopology: true });
+    let db = mongoose.connection;
 
+ 
 app.get('/', homeController);
 
-app.get('/book', bookController);
+app.get('/user', getUser);
+
+app.post('/user', addUser);
+
+app.delete('/user', deleteUser);
+
+app.post('/book', addBook);
+
+app.delete('/book', deleteBook);
+
+app.put('/book', updateBook);
 
 
 
-app.post('/create-book', createBook);
-app.put('/update-book/:book_id', updateBook);
-app.delete('/delete-book/:book_id', deleteBook);
+// app.get('/book', bookController);
+
+
+
+// app.post('/create-book', createBook);
+// app.put('/update-book/:book_id', updateBook);
+// app.delete('/delete-book/:book_id', deleteBook);
 
 
 
