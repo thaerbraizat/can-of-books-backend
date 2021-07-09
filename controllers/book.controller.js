@@ -1,20 +1,37 @@
-const users =require('../models/user.model');
+const User = require('../models/user.model');
 
-let getData = (req,res)=>{
-    console.log(req.query.email);
-    users.find({email:req.query.email},(err,users)=>{
 
-        if (err){
-            console.log(err);
+
+
+const addBook = (req, res) => {
+    User.updateOne({email: req.body.email},  {$push: {books: req.body.book}}, (err) => {
+        if (err) {
+            console.log("E");
         }
-        // console.log(users);
-        // const booksObject=users[0].books.toObject();
-       
-        // const arr =JSON.stringify(users)
-        // console.log(arr[0].books);
-        res.json(users)
-        console.log(users);
-    })
-
+        res.send('user updated')
+    });
 }
-module.exports=getData;
+
+
+const deleteBook = (req, res) => {
+    let name = req.body.book.name;
+    User.updateOne({email: req.body.email}, {"$pull": {"books": {"name": name}}}, (err) => {
+        if (err) {
+            console.log("E");
+        }
+        res.send('user updatejhjhd');
+    });
+}
+
+const updateBook = (req, res) => {
+    console.log(req.body);
+    User.updateOne({email: req.body.email, "books.name": req.body.name}, {"$set": {"books.$.name": req.body.book.name, "books.$.status": req.body.book.status, "books.$.description": req.body.book.description}}, (err) => {
+        if (err) {
+            console.log("fuvk you");
+        }
+        res.send("njjbjvjhvv");
+    });
+}
+
+
+module.exports = {addBook, deleteBook, updateBook} 
