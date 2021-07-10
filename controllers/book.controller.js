@@ -27,7 +27,7 @@ const updateBook = (req, res) => {
     console.log(req.body);
     User.updateOne({email: req.body.email, "books.name": req.body.name}, {"$set": {"books.$.name": req.body.book.name, "books.$.status": req.body.book.status, "books.$.description": req.body.book.description}}, (err) => {
         if (err) {
-            console.log("fuvk you");
+            console.log("fqweqwe");
         }
         res.send("njjbjvjhvv");
     });
