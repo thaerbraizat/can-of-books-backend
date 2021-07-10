@@ -24,7 +24,7 @@ app.use(express.json());
 
 const port = process.env.PORT;
 
- mongoose.connect('mongodb://localhost:27017/favBooks',
+ mongoose.connect('mongodb+srv://thaer:thaer12345@cluster0.tydth.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
     { useNewUrlParser: true, useUnifiedTopology: true });
     let db = mongoose.connection;
 
